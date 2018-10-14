@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    tools:context=".Activity.SliderActivity">
+
+	<HorizontalScrollView
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:layout_above="@id/horizontal_scroll">
+
+		<LinearLayout
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal">
+
+			<com.github.chrisbanes.photoview.PhotoView
+				    android:id="@+id/photo_view_slider1"
+				    android:layout_width="320dp"
+				    android:layout_height="600dp"
+				    android:layout_marginRight="@dimen/margin_standard"/>
+
+			<com.github.chrisbanes.photoview.PhotoView
+				    android:id="@+id/photo_view_slider2"
+				    android:layout_width="320dp"
+				    android:layout_height="600dp"
+				    android:layout_marginRight="@dimen/margin_standard"/>
+
+			<com.github.chrisbanes.photoview.PhotoView
+				    android:id="@+id/photo_view_slider3"
+				    android:layout_width="320dp"
+				    android:layout_height="600dp"
+				    android:layout_marginRight="@dimen/margin_standard"/>
+
+			<com.github.chrisbanes.photoview.PhotoView
+				    android:id="@+id/photo_view_slider4"
+				    android:layout_width="320dp"
+				    android:layout_height="600dp"
+				    android:layout_marginRight="@dimen/margin_standard"/>
+		</LinearLayout>
+	</HorizontalScrollView>
+
+
+	<HorizontalScrollView
+		    android:id="@+id/horizontal_scroll"
+		    android:layout_width="wrap_content"
+		    android:layout_height="128dp"
+		    android:layout_alignParentBottom="true">
+
+		<LinearLayout
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal">
+
+			<ImageView
+				    android:id="@+id/image_slide_one"
+				    android:layout_width="120dp"
+				    android:layout_height="match_parent"
+				    android:layout_marginRight="@dimen/margin_standard"/>
+
+			<ImageView
+				    android:id="@+id/image_slide_two"
+				    android:layout_width="120dp"
+				    android:layout_height="match_parent"
+				    android:layout_marginRight="@dimen/margin_standard"/>
+
+			<ImageView
+				    android:id="@+id/image_slide_three"
+				    android:layout_width="120dp"
+				    android:layout_height="match_parent"
+				    android:layout_marginRight="@dimen/margin_standard"/>
+
+			<ImageView
+				    android:id="@+id/image_slide_four"
+				    android:layout_width="120dp"
+				    android:layout_height="match_parent"
+				    android:layout_marginRight="@dimen/margin_standard"
+				    android:visibility="gone"/>
+		</LinearLayout>
+	</HorizontalScrollView>
+</RelativeLayout>

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="wrap_content"
+	    android:layout_height="160dp"
+	    android:layout_margin="@dimen/margin_standard"
+	    android:orientation="vertical">
+
+	<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layoutDirection="rtl"
+		    android:orientation="horizontal">
+
+		<LinearLayout
+
+			    android:layout_width="0dp"
+			    android:layout_height="match_parent"
+			    android:layout_weight=".5">
+
+			<RelativeLayout
+				    android:layout_marginBottom="30dp"
+				    android:id="@+id/relative_text"
+				    android:layout_width="wrap_content"
+				    android:layout_height="match_parent">
+
+				<TextView
+					    android:id="@+id/text_rating_keyfiat_amalkard"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:layout_above="@id/text_rating_ergonomy"
+					    android:text="کیفیت عملکرد"/>
+
+				<TextView
+					    android:id="@+id/text_rating_ergonomy"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:layout_above="@+id/text_rating_keyfiat"
+					    android:text="ارگونومی"/>
+
+				<TextView
+					    android:id="@+id/text_rating_keyfiat"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:layout_above="@id/text_rating_emkanat_ghabeliat"
+					    android:text="کیفیت ساخت"/>
+
+				<TextView
+					    android:id="@+id/text_rating_emkanat_ghabeliat"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:layout_above="@id/text_rating_arzesh_gheymat"
+					    android:text="امکانات و قابلیت ها"/>
+
+				<TextView
+
+
+					    android:id="@+id/text_rating_arzesh_gheymat"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:layout_alignParentBottom="true"
+					    android:layout_alignParentRight="true"
+					    android:text="ارزش در برابر قیمت"/>
+			</RelativeLayout>
+		</LinearLayout>
+
+		<LinearLayout
+			    android:layout_width="0dp"
+			    android:layout_height="match_parent"
+			    android:layout_margin="@dimen/margin_standard"
+			    android:layout_weight=".8"
+			    android:orientation="vertical">
+
+			<LinearLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_marginTop="9dp"
+				    android:orientation="horizontal">
+
+				<View
+					    android:id="@+id/view_row1_num1"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row1_num2"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row1_num3"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row1_num4"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row1_num5"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+			</LinearLayout>
+
+			<LinearLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_marginTop="9dp"
+				    android:orientation="horizontal">
+
+				<View
+					    android:id="@+id/view_row2_num1"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row2_num2"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row2_num3"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row2_num4"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row2_num5"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+			</LinearLayout>
+
+			<LinearLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_marginTop="9dp"
+				    android:orientation="horizontal">
+
+				<View
+					    android:id="@+id/view_row3_num1"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row3_num2"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row3_num3"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row3_num4"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row3_num5"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+			</LinearLayout>
+
+			<LinearLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_marginTop="9dp"
+				    android:orientation="horizontal">
+
+				<View
+					    android:id="@+id/view_row4_num1"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row4_num2"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row4_num3"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row4_num4"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row4_num5"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+			</LinearLayout>
+
+			<LinearLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_marginTop="9dp"
+				    android:orientation="horizontal">
+
+				<View
+					    android:id="@+id/view_row5_num1"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row5_num2"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row5_num3"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row5_num4"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+
+				<View
+					    android:id="@+id/view_row5_num5"
+					    android:layout_width="0dp"
+					    android:layout_height="6dp"
+					    android:layout_marginLeft="@dimen/margin_two"
+					    android:layout_marginTop="@dimen/margin_standard"
+					    android:layout_weight=".45"
+					    android:background="@color/greenView"/>
+			</LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+</RelativeLayout>

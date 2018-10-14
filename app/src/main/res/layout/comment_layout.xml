@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
+	    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="#d2d2d2"
+	    android:orientation="vertical"
+	    tools:context=".Activity.CommentActivity">
+
+	<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical">
+
+		<TextView
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="#d2d2d2"
+			    android:gravity="center_vertical|center_horizontal"
+			    android:text="محصول"
+			    android:textSize="28sp"/>
+
+		<android.support.v7.widget.CardView
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_margin="@dimen/margin_four"
+			    android:elevation="6dp"
+			    app:cardCornerRadius="6dp">
+
+			<include layout="@layout/bar_layout"/>
+		</android.support.v7.widget.CardView>
+
+		<android.support.v7.widget.CardView
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_margin="@dimen/margin_four"
+			    android:elevation="6dp"
+			    app:cardCornerRadius="5dp">
+
+			<RelativeLayout
+				    android:id="@+id/relativee"
+				    android:layout_width="match_parent"
+				    android:layout_height="match_parent"
+				    android:elevation="6dp">
+
+
+
+					<RelativeLayout
+
+						    android:id="@+id/relative_bar"
+						    android:layout_width="match_parent"
+						    android:layout_height="match_parent"
+						    android:layout_alignParentTop="true"
+						    android:background="@color/GreyButton">
+
+						<TextView
+							    android:id="@+id/text_name_carbar"
+							    android:layout_width="wrap_content"
+							    android:layout_height="wrap_content"
+							    android:layout_alignParentRight="true"
+							    android:layout_alignParentTop="true"
+							    android:layout_marginRight="@dimen/margin_standard"
+							    android:layout_marginTop="@dimen/margin_standard"
+							    android:text="نام کاربر"
+							    android:textColor="@color/Black"/>
+
+						<TextView
+							    android:id="@+id/text_data"
+							    android:layout_width="wrap_content"
+							    android:layout_height="wrap_content"
+							    android:layout_alignParentRight="true"
+							    android:layout_below="@id/text_name_carbar"
+							    android:layout_marginRight="@dimen/margin_standard"
+							    android:text="1397/07/07"
+							    android:textSize="8dp"/>
+
+						<mehdi.sakout.fancybuttons.FancyButton
+							    android:id="@+id/button_dislike11"
+							    android:layout_width="wrap_content"
+							    android:layout_height="wrap_content"
+							    android:layout_alignParentLeft="true"
+							    android:layout_marginLeft="@dimen/margin_four"
+							    android:layout_marginTop="@dimen/margin_standard"
+							    android:fontFamily="@font/iransansmobile"
+							    android:layoutDirection="rtl"
+							    android:paddingLeft="@dimen/padding_four"
+							    fancy:fb_borderColor="@color/borderButton"
+							    fancy:fb_borderWidth="1dp"
+							    fancy:fb_defaultColor="#8f8f8f"
+							    fancy:fb_iconPaddingLeft="8dp"
+							    fancy:fb_iconPosition="left"
+							    fancy:fb_iconResource="@drawable/dislike_button"
+							    fancy:fb_radius="4dp"
+							    fancy:fb_text="1"/>
+
+						<mehdi.sakout.fancybuttons.FancyButton
+							    android:id="@+id/button_like11"
+							    android:layout_width="wrap_content"
+							    android:layout_height="wrap_content"
+							    android:layout_marginLeft="@dimen/margin_standard"
+							    android:layout_marginTop="@dimen/margin_standard"
+							    android:layout_toRightOf="@id/button_dislike11"
+							    android:fontFamily="@font/iransansmobile"
+							    android:layoutDirection="rtl"
+							    android:paddingLeft="@dimen/padding_four"
+							    fancy:fb_borderColor="@color/borderButton"
+							    fancy:fb_borderWidth="1dp"
+							    fancy:fb_defaultColor="#8f8f8f"
+							    fancy:fb_iconPaddingLeft="8dp"
+							    fancy:fb_iconPosition="left"
+							    fancy:fb_iconResource="@drawable/like_button"
+							    fancy:fb_radius="4dp"
+							    fancy:fb_text="9"/>
+					</RelativeLayout>
+
+
+
+				<TextView
+					    android:id="@+id/should_buy_product"
+					    android:layout_width="match_parent"
+					    android:layout_height="40dp"
+					    android:layout_below="@+id/relative_bar"
+					    android:layout_margin="@dimen/margin_sixteen"
+					    android:background="@drawable/border_text_color"
+					    android:gravity="center_horizontal|center_vertical"
+					    android:text="خرید این محصول را حتما پیشنهاد میکنم"/>
+
+				<TextView
+					    android:id="@+id/text_comment"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:layout_below="@id/should_buy_product"
+					    android:layout_centerHorizontal="true"
+					    android:layout_marginBottom="@dimen/margin_standard"
+					    android:text="نظر کاربر1"
+					    android:textSize="@dimen/text_header_medium"/>
+			</RelativeLayout>
+		</android.support.v7.widget.CardView>
+		<android.support.v7.widget.CardView
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_margin="@dimen/margin_four"
+			    android:elevation="6dp"
+			    app:cardCornerRadius="5dp">
+
+			<RelativeLayout
+
+				    android:layout_width="match_parent"
+				    android:layout_height="match_parent"
+				    android:elevation="6dp">
+
+
+
+				<RelativeLayout
+
+					    android:id="@+id/relative_bar2"
+					    android:layout_width="match_parent"
+					    android:layout_height="match_parent"
+					    android:layout_alignParentTop="true"
+					    android:background="@color/GreyButton">
+
+					<TextView
+						    android:id="@+id/text_name_carbar2"
+						    android:layout_width="wrap_content"
+						    android:layout_height="wrap_content"
+						    android:layout_alignParentRight="true"
+						    android:layout_alignParentTop="true"
+						    android:layout_marginRight="@dimen/margin_standard"
+						    android:layout_marginTop="@dimen/margin_standard"
+						    android:text="نام کاربر2"
+						    android:textColor="@color/Black"/>
+
+					<TextView
+						    android:id="@+id/text_data2"
+						    android:layout_width="wrap_content"
+						    android:layout_height="wrap_content"
+						    android:layout_alignParentRight="true"
+						    android:layout_below="@id/text_name_carbar2"
+						    android:layout_marginRight="@dimen/margin_standard"
+						    android:text="1398/08/08"
+						    android:textSize="8dp"/>
+
+					<mehdi.sakout.fancybuttons.FancyButton
+						    android:id="@+id/button_dislike22"
+						    android:layout_width="wrap_content"
+						    android:layout_height="wrap_content"
+						    android:layout_alignParentLeft="true"
+						    android:layout_marginLeft="@dimen/margin_four"
+						    android:layout_marginTop="@dimen/margin_standard"
+						    android:fontFamily="@font/iransansmobile"
+						    android:layoutDirection="rtl"
+						    android:paddingLeft="@dimen/padding_four"
+						    fancy:fb_borderColor="@color/borderButton"
+						    fancy:fb_borderWidth="1dp"
+						    fancy:fb_defaultColor="#8f8f8f"
+						    fancy:fb_iconPaddingLeft="8dp"
+						    fancy:fb_iconPosition="left"
+						    fancy:fb_iconResource="@drawable/dislike_button"
+						    fancy:fb_radius="4dp"
+						    fancy:fb_text="12"/>
+
+					<mehdi.sakout.fancybuttons.FancyButton
+						    android:id="@+id/button_like22"
+						    android:layout_width="wrap_content"
+						    android:layout_height="wrap_content"
+						    android:layout_marginLeft="@dimen/margin_standard"
+						    android:layout_marginTop="@dimen/margin_standard"
+						    android:layout_toRightOf="@id/button_dislike22"
+						    android:fontFamily="@font/iransansmobile"
+						    android:layoutDirection="rtl"
+						    android:paddingLeft="@dimen/padding_four"
+						    fancy:fb_borderColor="@color/borderButton"
+						    fancy:fb_borderWidth="1dp"
+						    fancy:fb_defaultColor="#8f8f8f"
+						    fancy:fb_iconPaddingLeft="8dp"
+						    fancy:fb_iconPosition="left"
+						    fancy:fb_iconResource="@drawable/like_button"
+						    fancy:fb_radius="4dp"
+						    fancy:fb_text="4"/>
+				</RelativeLayout>
+
+
+
+				<TextView
+					    android:id="@+id/should_buy_product2"
+					    android:layout_width="match_parent"
+					    android:layout_height="40dp"
+					    android:layout_below="@+id/relative_bar2"
+					    android:layout_margin="@dimen/margin_sixteen"
+					    android:background="@drawable/border_text_color__red"
+					    android:textColor="@color/Black"
+					    android:gravity="center_horizontal|center_vertical"
+					    android:text="خرید این محصول را پیشنهاد نمیکنم"/>
+
+				<TextView
+					    android:id="@+id/text_comment2"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:layout_below="@id/should_buy_product2"
+					    android:layout_centerHorizontal="true"
+					    android:layout_marginBottom="@dimen/margin_standard"
+					    android:text="نظر کاربر 2"
+					    android:textSize="@dimen/text_header_medium"/>
+			</RelativeLayout>
+		</android.support.v7.widget.CardView>
+	</LinearLayout>
+</ScrollView>

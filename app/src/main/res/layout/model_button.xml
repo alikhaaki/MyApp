@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:id="@+id/textRecyclerModel"
+	    android:layout_width="120dp"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="@dimen/margin_two"
+	    android:background="@drawable/text_style"
+	    android:clickable="true"
+	    android:textAlignment="center"
+	    android:textColor="@color/WhiteColor"
+	    android:textSize="@dimen/text_sub_header_medium"
+	    tools:text="موبایل">
+
+
+</TextView>

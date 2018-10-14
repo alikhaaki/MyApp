@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    tools:context=".Activity.AboutActivity">
+
+	<android.support.v7.widget.Toolbar
+		    android:id="@+id/toolbar_about"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentTop="true"
+		    android:background="#d4d4d4">
+
+		<TextView
+			    android:id="@+id/toolbar_title"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="center"
+			    android:text="درباره من"/>
+	</android.support.v7.widget.Toolbar>
+
+	<TextView
+		    android:id="@+id/text_about_me"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@id/toolbar_about"
+		    android:layout_centerHorizontal="true"
+		    android:layout_marginTop="@dimen/margin_sixteen"
+		    android:text="درباره من ! "
+		    android:textColor="@color/Black"
+		    android:textSize="25sp"/>
+
+	<de.hdodenhof.circleimageview.CircleImageView
+		    android:id="@+id/image_about_profile"
+		    android:layout_width="120dp"
+		    android:layout_height="120dp"
+		    android:layout_below="@id/text_about_me"
+		    android:layout_centerHorizontal="true"
+		    android:layout_marginTop="32dp"
+		    android:src="@drawable/profile_image"
+		    app:civ_border_color="#08184d"
+		    app:civ_border_width="2dp"/>
+
+	<RelativeLayout
+		    android:id="@+id/linearLayoutTrans"
+		    android:layout_width="wrap_content"
+		    android:layout_height="100dp"
+		    android:layout_below="@id/image_about_profile"
+		    android:layout_centerHorizontal="true"
+		    android:layout_marginTop="@dimen/margin_sixteen">
+
+		<Button
+			    android:id="@+id/button_show_resume"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_centerHorizontal="true"
+			    android:background="@drawable/back_about_button"
+			    android:fontFamily="@font/iransansmobile"
+			    android:text="مشاهده رزومه "/>
+
+		<TextView
+			    android:id="@+id/text_resume_show"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignParentBottom="true"
+			    android:layout_centerHorizontal="true"
+			    android:text=" یه رزومه ی خیلی قوی   ; )"
+			    android:textColor="@color/Black"
+			    android:textSize="25sp"
+			    android:visibility="gone"/>
+	</RelativeLayout>
+
+	<TextView
+		    android:id="@+id/text_name_android"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_above="@id/text_bottom_androidDev"
+		    android:layout_centerHorizontal="true"
+		    android:layout_marginBottom="@dimen/margin_sixteen"
+		    android:text="علی خاکساری "
+		    android:textColor="@color/Black"
+		    android:textSize="16sp"/>
+
+	<TextView
+		    android:id="@+id/text_bottom_androidDev"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_centerHorizontal="true"
+		    android:layout_marginBottom="@dimen/margin_sixteen"
+		    android:text="ANDROID DEVELOPER"
+		    android:textColor="@color/Black"
+		    android:textSize="16sp"/>
+</RelativeLayout>
