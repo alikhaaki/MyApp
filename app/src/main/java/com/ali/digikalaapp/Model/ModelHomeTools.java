@@ -1,5 +1,7 @@
 package com.ali.digikalaapp.Model;
 
+import java.util.Comparator;
+
 public class ModelHomeTools {
 	
 	private int imageProductItem;
@@ -8,6 +10,7 @@ public class ModelHomeTools {
 	private String textPriceOriginal;
 	private String textPriceDiscount;
 	private int itemBadgeCount;
+	private int sortItem;
 	
 	public ModelHomeTools(int imageProductItem, String textTitle, String textSubTitle, String textPriceOriginal, String textPriceDiscount) {
 		this.imageProductItem = imageProductItem;
@@ -20,7 +23,6 @@ public class ModelHomeTools {
 	
 	}
 	
-
 	public int getImageProductItem() {
 		return imageProductItem;
 	}
@@ -56,5 +58,11 @@ public class ModelHomeTools {
 	}
 	public void setItemBadgeCount(int itemBadgeCount) {
 		this.itemBadgeCount = itemBadgeCount;
+	}
+	public int getSortItem() {
+		return sortItem;
+	}
+	public void setSortItem(int sortItem) {
+		this.sortItem = sortItem;
 	}
 }

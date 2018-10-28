@@ -1,0 +1,53 @@
+<resources>
+	<!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="drawerArrowStyle">@style/DrawerIconStyle</item>
+		<item name="android:textViewStyle">@style/defaultTextViewStyle</item>
+	</style>
+
+	<style name="style_about_page" parent="Theme.AppCompat.DayNight.NoActionBar">
+		<item name="colorPrimary">#d4d4d4</item>
+		<item name="colorPrimaryDark">#969696</item>
+		<item name="colorAccent">#fff352</item>
+		<item name="drawerArrowStyle">@style/DrawerIconStyle</item>
+		<item name="android:textViewStyle">@style/defaultTextViewStyle</item>
+	</style>
+	<!--overRide all textView font-->
+	<style name="defaultTextViewStyle" parent="android:Widget.TextView">
+		<item name="android:fontFamily">@font/iransansmobile</item>
+	</style>
+	<!--for drawer icon color-->
+	<style name="DrawerIconStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+		<item name="color">#ffffff</item>
+	</style>
+
+	<style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+		<!-- Customize color of navigation drawer icon and back arrow -->
+		<item name="colorControlNormal">@color/WhiteColor</item>
+	</style>
+
+	<style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+		<!--item RadioButton or CheckBox color-->
+		<item name="colorControlNormal">@android:color/white</item>
+		<item name="colorControlActivated">#ffffff</item>
+		<!--item text color-->
+		<item name="textColorAlertDialogListItem">@android:color/white</item>
+		<!--buttons color-->
+		<item name="colorAccent">#ffffff</item>
+		<!--title and message color-->
+		<item name="android:textColorPrimary">@android:color/white</item>
+		<!--dialog background-->
+		<item name="android:windowBackground">@drawable/back_dialog</item>
+		<item name="android:fontFamily">@font/iransansmobile</item>
+	</style>
+
+	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+
+</resources>

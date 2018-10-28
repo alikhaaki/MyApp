@@ -1,8 +1,12 @@
 package com.ali.digikalaapp.Activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -24,6 +28,7 @@ import android.widget.Toast;
 
 import com.ali.digikalaapp.Adapter.AdapterHomeSuggestList;
 import com.ali.digikalaapp.HelperClass.RecyclerViewItemClickListener;
+import com.ali.digikalaapp.Model.ModelButton;
 import com.ali.digikalaapp.Model.ModelHomeTools;
 import com.ali.digikalaapp.R;
 
@@ -60,8 +65,9 @@ public class ProductListActivity extends AppCompatActivity {
 	private Toolbar toolbarTools;
 	private RelativeLayout relativeLayout;
 	private TextView textCartItemCount;
-	private int selected;
+	private int selects;
 	private int mCartItemCount = 0;
+	private TextView textFilterShow;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,20 +76,12 @@ public class ProductListActivity extends AppCompatActivity {
 		
 		final Intent intentOne = getIntent();
 		final int idName = intentOne.getIntExtra(KEY_STRING, 0);
+		textFilterShow = findViewById(R.id.text_filter_show);
 		
 		setToolbar();
 		alertDialogBox();
 		changeItemList();
 		initRecyclerView();
-		
-		Collections.sort(listTools, new Comparator<ModelHomeTools>() {
-			
-			@Override
-			public int compare(ModelHomeTools o1, ModelHomeTools o2) {
-				return o1.getTextTitle().compareTo(o2.getTextTitle());
-			}
-		});
-		
 		
 		switch (idName) {
 			
@@ -154,11 +152,7 @@ public class ProductListActivity extends AppCompatActivity {
 			
 		}
 		
-		
-		
 		recyclerViewTools.addOnItemTouchListener(new RecyclerViewItemClickListener(this, recyclerViewTools, new RecyclerViewItemClickListener.OnItemClickListener() {
-			
-			
 			
 			@Override
 			public void onItemClick(View view, int position) {
@@ -186,8 +180,10 @@ public class ProductListActivity extends AppCompatActivity {
 						
 						switch (idName) {
 							case notePaper:
+								
 								intentDetail.putExtra(PRODUCT_ID_NAME, 70);
 								startActivity(intentDetail);
+								
 								break;
 							case cleaner:
 								
@@ -354,11 +350,11 @@ public class ProductListActivity extends AppCompatActivity {
 			}
 		}));
 		
-		int countItem=0;
-		 
-			countItem=recyclerViewTools.getAdapter().getItemCount();
-			Log.i("countItem", " recyclerView item count "+countItem);
-		 
+		int countItem = 0;
+		
+		countItem = recyclerViewTools.getAdapter().getItemCount();
+		Log.i("countItem", " recyclerView item count " + countItem);
+		
 	}
 	
 	private void initRecyclerView() {
@@ -368,8 +364,8 @@ public class ProductListActivity extends AppCompatActivity {
 		adapterHomeSuggestList = new AdapterHomeSuggestList(this, listTools);
 		recyclerViewTools.setLayoutManager(gridLayoutManager);
 		recyclerViewTools.setAdapter(adapterHomeSuggestList);
-		recyclerViewTools.setHasFixedSize(true);
-		recyclerViewTools.setAdapter(new ScaleInAnimationAdapter(adapterHomeSuggestList));
+//		recyclerViewTools.setHasFixedSize(true);
+//		recyclerViewTools.setAdapter(new ScaleInAnimationAdapter(adapterHomeSuggestList));
 	}
 	private void alertDialogBox() {
 		relativeLayout = findViewById(R.id.relative_sort_item);
@@ -378,43 +374,57 @@ public class ProductListActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				
-				final String[] select = {"پربازدیدترین", "پرفروشترین", "جدیدترین", "ارزانترین", "گرانترین"};
+				final String[] select = {"ارزانترین", "گرانترین", "پربازدیدترین", "پرفروشترین", "جدیدترین"};
 				AlertDialog dialog = new AlertDialog.Builder(ProductListActivity.this, R.style.MyDialogTheme)
 					
 					                     .setSingleChoiceItems(select, -1, new DialogInterface.OnClickListener() {
 						
 						                     @Override
 						                     public void onClick(DialogInterface dialog, int which) {
-							                    switch (which)
-							                    {
-								                    case 0:
-									                    
-									                    Toast.makeText(ProductListActivity.this, "tostinnnnnng", Toast.LENGTH_SHORT).show();
-									                    break;
-								                    case 1:
-									                    Toast.makeText(ProductListActivity.this, "this toast", Toast.LENGTH_SHORT).show();
-									                    break;
-									                    default:
-									                    	return;
-							                    }
-						                     }
-					                     })
-					                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-						
-						                     @Override
-						                     public void onClick(DialogInterface dialog, int which) {
-						                     	switch (which){
-							                         case 0:
-								                     
-								                         Toast.makeText(ProductListActivity.this, "case 0", Toast.LENGTH_SHORT).show();
-								                         break;
-							                         case 1:
-								                         Toast.makeText(ProductListActivity.this, "case 1 ", Toast.LENGTH_SHORT).show();
-								                         break;
-								                         default:
-								                         	return;
-						                         }
-							                    // Toast.makeText(ProductListActivity.this, select[selected] + " " + " انتخاب شد ", Toast.LENGTH_SHORT).show();
+							
+							                     switch (which) {
+								                     case 0:
+									                     sortLowPrice();
+									                     dialog.dismiss();
+									                     textFilterShow.setText("ارزانترین");
+									                     textFilterShow.setTextColor(ContextCompat.getColor(ProductListActivity.this, R.color.colorAccent));
+									                     Toast.makeText(ProductListActivity.this, select[which] + " " + " انتخاب شد ", Toast.LENGTH_SHORT).show();
+									                     break;
+								
+								                     case 1:
+									                     sortHighPrice();
+									                     dialog.dismiss();
+									
+									                     textFilterShow.setText("گرانترین");
+									                     textFilterShow.setTextColor(ContextCompat.getColor(ProductListActivity.this, R.color.colorAccent));
+									                     Toast.makeText(ProductListActivity.this, select[which] + " " + " انتخاب شد ", Toast.LENGTH_SHORT).show();
+									                     break;
+								
+								                     case 2:
+									
+									                     dialog.dismiss();
+									                     textFilterShow.setText("پربازدیدترین");
+									                     textFilterShow.setTextColor(ContextCompat.getColor(ProductListActivity.this, R.color.colorAccent));
+									                     Toast.makeText(ProductListActivity.this, select[which] + " " + " انتخاب شد ", Toast.LENGTH_SHORT).show();
+									                     break;
+								
+								                     case 3:
+									                     dialog.dismiss();
+									                     textFilterShow.setText("پرفروشترین");
+									                     textFilterShow.setTextColor(ContextCompat.getColor(ProductListActivity.this, R.color.colorAccent));
+									
+									                     Toast.makeText(ProductListActivity.this, select[which] + " " + " انتخاب شد ", Toast.LENGTH_SHORT).show();
+									                     break;
+								
+								                     case 4:
+									                     dialog.dismiss();
+									                     textFilterShow.setText("جدیدترین");
+									                     textFilterShow.setTextColor(ContextCompat.getColor(ProductListActivity.this, R.color.colorAccent));
+									                     Toast.makeText(ProductListActivity.this, select[which] + " " + " انتخاب شد ", Toast.LENGTH_SHORT).show();
+									                     break;
+								
+							                     }
+							
 						                     }
 					                     })
 					                     .create();
@@ -432,11 +442,11 @@ public class ProductListActivity extends AppCompatActivity {
 				if (gridView) {
 					imageChangeList.setImageResource(R.drawable.ic_list_line);
 					recyclerViewTools.setLayoutManager(linearLayoutManager);
-					recyclerViewTools.setAdapter(new ScaleInAnimationAdapter(adapterHomeSuggestList));
+//					recyclerViewTools.setAdapter(new ScaleInAnimationAdapter(adapterHomeSuggestList));
 				} else {
 					imageChangeList.setImageResource(R.drawable.ic_list_grid);
 					recyclerViewTools.setLayoutManager(gridLayoutManager);
-					recyclerViewTools.setAdapter(new ScaleInAnimationAdapter(adapterHomeSuggestList));
+//					recyclerViewTools.setAdapter(new ScaleInAnimationAdapter(adapterHomeSuggestList));
 				}
 				
 			}
@@ -491,6 +501,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle("مدل 32 گیگ");
 		modelHomeTools.setTextPriceOriginal("6،400،000 تومان");
 		modelHomeTools.setTextPriceDiscount("7،000،000 تومان");
+		modelHomeTools.setSortItem(6400000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -499,14 +510,16 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(getString(R.string.vije_981_sub));
 		modelHomeTools.setTextPriceOriginal(getString(R.string.vije_981_original));
 		modelHomeTools.setTextPriceDiscount(getString(R.string.vije_981_discount));
+		modelHomeTools.setSortItem(3999000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.samsung21);
 		modelHomeTools.setTextTitle("SAMSUNG A5   ");
 		modelHomeTools.setTextSubTitle("مدل 32 گیگ");
-		modelHomeTools.setTextPriceOriginal("  6،000،000 تومان");
+		modelHomeTools.setTextPriceOriginal("6،000،000 تومان");
 		modelHomeTools.setTextPriceDiscount("6،500،000 تومان");
+		modelHomeTools.setSortItem(6000000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -515,6 +528,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  2،200،000 تومان");
 		modelHomeTools.setTextPriceDiscount(" 2،456،000 تومان");
+		modelHomeTools.setSortItem(2200000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -523,6 +538,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  2،400،000 تومان");
 		modelHomeTools.setTextPriceDiscount(" 2،456،000 تومان");
+		modelHomeTools.setSortItem(2400000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -531,6 +548,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(" مدل 333");
 		modelHomeTools.setTextPriceOriginal("799،000 تومان");
 		modelHomeTools.setTextPriceDiscount("890,000 تومان");
+		modelHomeTools.setSortItem(799000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -538,7 +557,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("مایع ظرفشویی بانو");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  20،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(20000);
+		
 		listTools.add(modelHomeTools);
 	}
 	private void setNewestItemList() {
@@ -546,7 +566,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("پسته دامغان");
 		modelHomeTools.setTextSubTitle("");
 		modelHomeTools.setTextPriceOriginal("25،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(25000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -554,7 +575,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("آلو دامغان ");
 		modelHomeTools.setTextSubTitle(" آلو بخارا");
 		modelHomeTools.setTextPriceOriginal("12،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(12000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -563,6 +585,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(" مدل 234   ");
 		modelHomeTools.setTextPriceOriginal("1،999،999 تومان");
 		modelHomeTools.setTextPriceDiscount("2,540,000 تومان");
+		modelHomeTools.setSortItem(1999999);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -570,7 +594,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("دفترچه یادداشت شکرگزاری");
 		modelHomeTools.setTextSubTitle("مدل شکرگزاری");
 		modelHomeTools.setTextPriceOriginal("35،222 تومان");
-//				modelHomeTools.setTextPriceDiscount("19،000");
+		modelHomeTools.setSortItem(35222);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -579,6 +604,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle("مدل 16 گیگ");
 		modelHomeTools.setTextPriceOriginal("1،999،000 تومان");
 		modelHomeTools.setTextPriceDiscount("2،000،000 تومان");
+		modelHomeTools.setSortItem(1999000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -586,7 +613,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("دستبند طلای 18 عیار");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  6،000،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(6000000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -594,7 +621,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("دستبند طلا و سنگ    ");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  3،200،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(3200000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -602,7 +630,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("پودر ماشین لباسشویی هوم کر  ");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  19،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(19000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -610,7 +639,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("مایع ظرفشویی 5 لیتری  ");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  20،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(20000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -618,7 +647,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("مایع صابون");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  20،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(20000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -626,7 +655,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("مایع ظرفشویی بانو");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  20،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(20000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -634,7 +663,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("مایع سفید کنند بانو");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  20،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(20000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -642,7 +671,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("شیشه پاک کن هوم کر      ");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  20،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(20000);
 		listTools.add(modelHomeTools);
 	}
 	private void setDriedFruit() {
@@ -651,7 +680,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.fruit_40_title));
 		modelHomeTools.setTextSubTitle("");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.fruit_40_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(25000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -659,7 +688,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.fruit_41_title));
 		modelHomeTools.setTextSubTitle(getString(R.string.fruit_41_sub));
 		modelHomeTools.setTextPriceOriginal(getString(R.string.fruit_41_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(12000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -667,7 +696,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(" پسته 300 گرمی رفسنجان  ");
 		modelHomeTools.setTextSubTitle("پسته کرمان");
 		modelHomeTools.setTextPriceOriginal("19،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(19000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -675,7 +704,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("تخمه چاپار");
 		modelHomeTools.setTextSubTitle("  تخمه کدو ");
 		modelHomeTools.setTextPriceOriginal("10،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(10000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -683,25 +712,27 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("پسته لورا  ");
 		modelHomeTools.setTextSubTitle("   ");
 		modelHomeTools.setTextPriceOriginal("45،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(45000);
 		listTools.add(modelHomeTools);
 	}
 	private void setHomeApplianceList() {
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.sorkhkon);
-		modelHomeTools.setTextTitle(getString(R.string.home_90_title));
-		modelHomeTools.setTextSubTitle(getString(R.string.home_90_sub));
+		modelHomeTools.setTextTitle(getString(R.string.philips));
+		modelHomeTools.setTextSubTitle(getString(R.string.philips_sub));
 		modelHomeTools.setTextPriceOriginal(getString(R.string.home_90_original));
 		modelHomeTools.setTextPriceDiscount(getString(R.string.home_90_discount));
+		modelHomeTools.setSortItem(799000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.ojaghgaz);
-		modelHomeTools.setTextTitle(getString(R.string.home_91_title));
-		modelHomeTools.setTextSubTitle(getString(R.string.home_91_sub));
+		modelHomeTools.setTextTitle(getString(R.string.hardston));
+		modelHomeTools.setTextSubTitle(getString(R.string.hard_sub));
 		modelHomeTools.setTextPriceOriginal(getString(R.string.home_91_original));
 		modelHomeTools.setTextPriceDiscount(getString(R.string.home_91_discount));
+		modelHomeTools.setSortItem(800000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -710,6 +741,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(" مدل 234   ");
 		modelHomeTools.setTextPriceOriginal("1،999،999 تومان");
 		modelHomeTools.setTextPriceDiscount("2,540,000 تومان");
+		modelHomeTools.setSortItem(1999999);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -718,14 +750,16 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(" مدل ایر   ");
 		modelHomeTools.setTextPriceOriginal("200،000 تومان");
 		modelHomeTools.setTextPriceDiscount("290,000 تومان");
+		modelHomeTools.setSortItem(200000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.polopazapars);
 		modelHomeTools.setTextTitle("Polo paz pars khazar");
 		modelHomeTools.setTextSubTitle(" ");
-		modelHomeTools.setTextPriceOriginal("850،222");
-//				modelHomeTools.setTextPriceDiscount(" 3،490،000 تومان");
+		modelHomeTools.setTextPriceOriginal(" 850،222 تومان");
+		modelHomeTools.setSortItem(850222);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -733,7 +767,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("Kabab saz kenwood");
 		modelHomeTools.setTextSubTitle(" کباب ساز کنوود مدل  88 دارای جوجه گردان اتوماتیک و منقل");
 		modelHomeTools.setTextPriceOriginal("500،000 تومان");
-//				modelHomeTools.setTextPriceDiscount("690،000 تومان");
+		modelHomeTools.setSortItem(500000);
+		
 		listTools.add(modelHomeTools);
 	}
 	private void setPaperList() {
@@ -744,6 +779,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(getString(R.string.note_70_sub_title));
 		modelHomeTools.setTextPriceOriginal("11،000 تومان");
 		modelHomeTools.setTextPriceDiscount(getString(R.string.note_70_discount));
+		modelHomeTools.setSortItem(11000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -751,7 +787,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.note_71_title));
 		modelHomeTools.setTextSubTitle(getString(R.string.note_71_sub_title));
 		modelHomeTools.setTextPriceOriginal("14،500 تومان");
- 
+		modelHomeTools.setSortItem(14000);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -760,6 +796,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle("مدل شکرگزاری");
 		modelHomeTools.setTextPriceOriginal("3،222 تومان");
 		modelHomeTools.setTextPriceDiscount("19،000 تومان");
+		modelHomeTools.setSortItem(3200);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -767,7 +804,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("دفترچه یادداشت آبی");
 		modelHomeTools.setTextSubTitle("مدل شکرگزاری");
 		modelHomeTools.setTextPriceOriginal("28،345 تومان");
- 
+		modelHomeTools.setSortItem(28345);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -775,7 +812,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("دفترچه یادداشت سبز");
 		modelHomeTools.setTextSubTitle("مدل شکرگزاری");
 		modelHomeTools.setTextPriceOriginal("1،500 تومان");
- 
+		modelHomeTools.setSortItem(1500);
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -783,7 +820,7 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("دفترچه یادداشت شکرگزاری");
 		modelHomeTools.setTextSubTitle("مدل شکرگزاری");
 		modelHomeTools.setTextPriceOriginal("35،222 تومان");
- 
+		modelHomeTools.setSortItem(35222);
 		listTools.add(modelHomeTools);
 		
 	}
@@ -794,7 +831,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.toys_110_title));
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.toys_110_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(67000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -802,15 +840,17 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.toys_111_title));
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.toys_111_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(32000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.toys_asbabbazi_4);
 		modelHomeTools.setTextTitle("بازی اتلو");
 		modelHomeTools.setTextSubTitle(" ");
-		modelHomeTools.setTextPriceOriginal("32،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setTextPriceOriginal("38،000 تومان");
+		modelHomeTools.setSortItem(38000);
+		
 		listTools.add(modelHomeTools);
 		
 	}
@@ -822,6 +862,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.sport_80_original));
 		modelHomeTools.setTextPriceDiscount(getString(R.string.sport_80_discount));
+		modelHomeTools.setSortItem(1800000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -829,7 +871,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.sport_81_title));
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.sport_81_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(2200000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -838,30 +881,40 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  1،200،000 تومان");
 		modelHomeTools.setTextPriceDiscount(" 2،800،000 تومان");
+		modelHomeTools.setSortItem(1200000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.new_balance_9);
 		modelHomeTools.setTextTitle("کفش نیو بالانس فوتبال ");
 		modelHomeTools.setTextSubTitle(" ");
-		modelHomeTools.setTextPriceOriginal("  1،200،000 تومان");
+		modelHomeTools.setTextPriceOriginal("  1،468،000 تومان");
 		modelHomeTools.setTextPriceDiscount(" 2،456،000 تومان");
+		modelHomeTools.setSortItem(1468000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.new_balance_1);
 		modelHomeTools.setTextTitle("کفش  نیو بالانس مخصوص پیاده روی");
 		modelHomeTools.setTextSubTitle(" ");
-		modelHomeTools.setTextPriceOriginal("  2،200،000 تومان");
-		modelHomeTools.setTextPriceDiscount(" 2،456،000 تومان");
+		modelHomeTools.setTextPriceOriginal("   200،000 تومان");
+		modelHomeTools.setTextPriceDiscount("   456،000 تومان");
+		modelHomeTools.setSortItem(200000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.adidas_1);
 		modelHomeTools.setTextTitle("کفش  آدیداس پیاده روی");
 		modelHomeTools.setTextSubTitle(" ");
-		modelHomeTools.setTextPriceOriginal("  2،400،000 تومان");
-		modelHomeTools.setTextPriceDiscount(" 2،456،000 تومان");
+		modelHomeTools.setTextPriceOriginal("  3،900،000 تومان");
+		modelHomeTools.setTextPriceDiscount(" 4،456،000 تومان");
+		modelHomeTools.setSortItem(200000);
+		
+		modelHomeTools.setSortItem(200000);
+		
 		listTools.add(modelHomeTools);
 	}
 	private void setToolsList() {
@@ -871,7 +924,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.tools_30_title));
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.tools_30_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(1200000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -880,6 +934,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.tools_31_original));
 		modelHomeTools.setTextPriceDiscount(getString(R.string.tools_31_discount));
+		modelHomeTools.setSortItem(185000);
+		
 		listTools.add(modelHomeTools);
 	}
 	private void setHairCutterList() {
@@ -889,7 +945,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.hair_60_title));
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.hair_60_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(850000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -897,7 +954,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.hair_61_title));
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.hair_61_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(250000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -905,7 +963,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("موزر مشکی  ");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  295،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(295000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -913,7 +972,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle("ریش تراش براون    ");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  644،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(644000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -922,6 +982,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle("مدل BLADE ");
 		modelHomeTools.setTextPriceOriginal("  835،000 تومان");
 		modelHomeTools.setTextPriceDiscount(" 1،100،000 تومان");
+		modelHomeTools.setSortItem(835000);
+		
 		listTools.add(modelHomeTools);
 	}
 	private void setCleanerList() {
@@ -931,7 +993,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.clean_10_title));
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.clean_10_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(19000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -939,39 +1002,44 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.clean_11_title));
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.clean_11_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(20000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.clean_maye_saboon);
 		modelHomeTools.setTextTitle("مایع صابون");
 		modelHomeTools.setTextSubTitle(" ");
-		modelHomeTools.setTextPriceOriginal("  20،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setTextPriceOriginal("  28،000 تومان");
+		modelHomeTools.setSortItem(28000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.clean_maye_zarfshooyi);
 		modelHomeTools.setTextTitle("مایع ظرفشویی بانو");
 		modelHomeTools.setTextSubTitle(" ");
-		modelHomeTools.setTextPriceOriginal("  20،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setTextPriceOriginal("  10،000 تومان");
+		modelHomeTools.setSortItem(10000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.clean_sefidconnade);
 		modelHomeTools.setTextTitle("مایع سفید کنند بانو");
 		modelHomeTools.setTextSubTitle(" ");
-		modelHomeTools.setTextPriceOriginal("  20،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setTextPriceOriginal("  16،000 تومان");
+		modelHomeTools.setSortItem(16000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.clean_shishepakon);
 		modelHomeTools.setTextTitle("شیشه پاک کن هوم کر      ");
 		modelHomeTools.setTextSubTitle(" ");
-		modelHomeTools.setTextPriceOriginal("  20،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setTextPriceOriginal("  4،500 تومان");
+		modelHomeTools.setSortItem(4500);
+		
 		listTools.add(modelHomeTools);
 	}
 	private void setGoldList() {
@@ -981,7 +1049,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.gold_20_title));
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.gold_20_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(6000000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -989,15 +1058,17 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextTitle(getString(R.string.gold_21_title));
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal(getString(R.string.gold_21_original));
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(3200000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
-		modelHomeTools.setImageProductItem(R.drawable.gold1);
+		modelHomeTools.setImageProductItem(R.drawable.gold5);
 		modelHomeTools.setTextTitle("دستبند پلاتینیوم");
 		modelHomeTools.setTextSubTitle(" ");
 		modelHomeTools.setTextPriceOriginal("  2،200،000 تومان");
-//				modelHomeTools.setTextPriceDiscount(" ");
+		modelHomeTools.setSortItem(2200000);
+		
 		listTools.add(modelHomeTools);
 	}
 	private void setMobileList() {
@@ -1007,6 +1078,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(getString(R.string.mobile_50_sub));
 		modelHomeTools.setTextPriceOriginal(getString(R.string.mobile_50_original));
 		modelHomeTools.setTextPriceDiscount(getString(R.string.mobile_50_discount));
+		modelHomeTools.setSortItem(18400000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -1015,6 +1088,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle(getString(R.string.mobile_51_sub));
 		modelHomeTools.setTextPriceOriginal(getString(R.string.mobile_51_original));
 		modelHomeTools.setTextPriceDiscount(getString(R.string.mobile_51_discount));
+		modelHomeTools.setSortItem(6400000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -1023,6 +1098,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle("مدل 32 گیگ");
 		modelHomeTools.setTextPriceOriginal("2،999،000 تومان");
 		modelHomeTools.setTextPriceDiscount("3،000،000 تومان");
+		modelHomeTools.setSortItem(2999000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -1031,14 +1108,18 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle("مدل 256 گیگ");
 		modelHomeTools.setTextPriceOriginal("8،999،000 تومان");
 		modelHomeTools.setTextPriceDiscount("9،000،000 تومان");
+		modelHomeTools.setSortItem(8999000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.iphone13);
 		modelHomeTools.setTextTitle("آیفون 6 ");
 		modelHomeTools.setTextSubTitle("مدل 16 گیگ");
-		modelHomeTools.setTextPriceOriginal("3،999،000 تومان");
+		modelHomeTools.setTextPriceOriginal("2،999،000 تومان");
 		modelHomeTools.setTextPriceDiscount("4،000،000 تومان");
+		modelHomeTools.setSortItem(2999000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -1047,14 +1128,18 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle("مدل 16 گیگ");
 		modelHomeTools.setTextPriceOriginal("1،999،000 تومان");
 		modelHomeTools.setTextPriceDiscount("2،000،000 تومان");
+		modelHomeTools.setSortItem(1999000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.lg18);
 		modelHomeTools.setTextTitle("LG OLYMPUS ");
 		modelHomeTools.setTextSubTitle("مدل 32 گیگ");
-		modelHomeTools.setTextPriceOriginal("3،999،000 تومان");
-		modelHomeTools.setTextPriceDiscount("4،500،000 تومان");
+		modelHomeTools.setTextPriceOriginal("  799،000 تومان");
+		modelHomeTools.setTextPriceDiscount(" 800،000 تومان");
+		modelHomeTools.setSortItem(799000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -1063,6 +1148,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle("مدل 16 گیگ");
 		modelHomeTools.setTextPriceOriginal("  999،000 تومان");
 		modelHomeTools.setTextPriceDiscount("1،000،000 تومان");
+		modelHomeTools.setSortItem(999000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -1071,6 +1158,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle("مدل 256 گیگ");
 		modelHomeTools.setTextPriceOriginal("  12،000،000 تومان");
 		modelHomeTools.setTextPriceDiscount("12،500،000 تومان");
+		modelHomeTools.setSortItem(12000000);
+		
 		listTools.add(modelHomeTools);
 		
 		modelHomeTools = new ModelHomeTools();
@@ -1079,6 +1168,8 @@ public class ProductListActivity extends AppCompatActivity {
 		modelHomeTools.setTextSubTitle("مدل 32 گیگ");
 		modelHomeTools.setTextPriceOriginal("  6،000،000 تومان");
 		modelHomeTools.setTextPriceDiscount("6،500،000 تومان");
+		modelHomeTools.setSortItem(6000000);
+		
 		listTools.add(modelHomeTools);
 	}
 	private void setToolbar() {
@@ -1091,18 +1182,91 @@ public class ProductListActivity extends AppCompatActivity {
 		actionBar.setHomeButtonEnabled(true);
 	}
 	
+	private void sortAscending() {
+		Collections.sort(listTools, new Comparator<ModelHomeTools>() {
+			
+			@Override
+			public int compare(ModelHomeTools o1, ModelHomeTools o2) {
+				//return o1.getTextTitle().compareTo(o2.getTextTitle());
+				return o1.getTextPriceOriginal().compareTo(o2.getTextPriceOriginal());
+			}
+		});
+		adapterHomeSuggestList.notifyDataSetChanged();
+		
+	}
 	
-	@Override
+	private void sortLowPrice() {
+		Collections.sort(listTools, new Comparator<ModelHomeTools>() {
+			
+			@Override
+			public int compare(ModelHomeTools o1, ModelHomeTools o2) {
+				//return o1.getTextTitle().compareTo(o2.getTextTitle());
+				return Integer.valueOf(o1.getSortItem()).compareTo(o2.getSortItem());
+			}
+		});
+		adapterHomeSuggestList.notifyDataSetChanged();
+	}
+	private void sortNewest() {
+		Collections.sort(listTools, new Comparator<ModelHomeTools>() {
+			
+			@Override
+			public int compare(ModelHomeTools o1, ModelHomeTools o2) {
+				
+				return o1.getTextTitle().compareTo(o2.getTextTitle());
+			}
+		});
+		adapterHomeSuggestList.notifyDataSetChanged();
+	}
+	
+	private void sortMostView() {
+		Collections.sort(listTools, new Comparator<ModelHomeTools>() {
+			
+			@Override
+			public int compare(ModelHomeTools o1, ModelHomeTools o2) {
+				
+				return o1.getTextPriceDiscount().compareTo(o2.getTextPriceDiscount());
+			}
+		});
+		adapterHomeSuggestList.notifyDataSetChanged();
+	}
+	
+	private void sortMostBuy() {
+		Collections.sort(listTools, new Comparator<ModelHomeTools>() {
+			
+			@Override
+			public int compare(ModelHomeTools o1, ModelHomeTools o2) {
+				
+				return o1.getTextSubTitle().compareTo(o2.getTextSubTitle());
+			}
+		});
+		adapterHomeSuggestList.notifyDataSetChanged();
+	}
+	
+	private void sortHighPrice() {
+		
+		Collections.sort(listTools, new Comparator<ModelHomeTools>() {
+			
+			@Override
+			public int compare(ModelHomeTools o1, ModelHomeTools o2) {
+				
+				return Integer.valueOf(o2.getSortItem()).compareTo(o1.getSortItem());
+			}
+		});
+		adapterHomeSuggestList.notifyDataSetChanged();
+		
+	}
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.basket_menu_item, menu);
-		
 		final MenuItem menuItem = menu.findItem(R.id.action_cart);
-		
 		View actionView = menuItem.getActionView();
-		
 		textCartItemCount = actionView.findViewById(R.id.cart_badge);
 		
-		setUpBadge();
+//		SharedPreferences values = PreferenceManager.getDefaultSharedPreferences(this);
+//
+//		int basketValue=values.getInt("key_key", -0);
+		
+		textCartItemCount.setText(String.valueOf(0));
 		
 		actionView.setOnClickListener(new View.OnClickListener() {
 			
@@ -1113,6 +1277,7 @@ public class ProductListActivity extends AppCompatActivity {
 			}
 		});
 		return true;
+		
 	}
 	
 	private void setUpBadge() {

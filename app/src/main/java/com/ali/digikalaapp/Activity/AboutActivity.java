@@ -30,11 +30,11 @@ public class AboutActivity extends AppCompatActivity {
 		TextView textViewName=findViewById(R.id.text_name_android);
 		
 		YoYo.with(Techniques.Pulse).duration(3000)
-			.repeat(2)
+			
 			.playOn(textViewName);
 		
 		YoYo.with(Techniques.BounceInDown).duration(3000)
-			.repeat(1)
+			
 			.playOn(textViewANdroid);
 		 
 		

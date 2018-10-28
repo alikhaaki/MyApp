@@ -1,7 +1,6 @@
 package com.ali.digikalaapp.Activity;
 
 import android.content.Intent;
-
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -28,7 +27,6 @@ import static com.ali.digikalaapp.Activity.ProductListActivity.PRODUCT_ID_NAME;
 import mehdi.sakout.fancybuttons.FancyButton;
 import ss.com.bannerslider.Slider;
 import ss.com.bannerslider.adapters.SliderAdapter;
-import ss.com.bannerslider.event.OnSlideClickListener;
 import ss.com.bannerslider.viewholder.ImageSlideViewHolder;
 
 public class ProductDetailActivity extends AppCompatActivity {
@@ -56,9 +54,9 @@ public class ProductDetailActivity extends AppCompatActivity {
 	private TextView textPriceDiscount;
 	private CountdownView countdownView;
 	private Toolbar toolbarDetail;
-	private int badgeCountItem =0;
+	private int badgeCountItem;
+	public  static int badgeItem=0;
 	private TextView textCartItemCount;
-	
 	private UserSharedPreferences userSharedPreferences;
 	private ModelHomeTools modelHomeTools;
 	@Override
@@ -76,32 +74,33 @@ public class ProductDetailActivity extends AppCompatActivity {
 		final Intent intent = getIntent();
 		final int intentProductActivity = intent.getIntExtra(product_id, 0);
 		
-		userSharedPreferences=new UserSharedPreferences(this);
-		modelHomeTools=new ModelHomeTools();
-		modelHomeTools=userSharedPreferences.getBasketItem();
-	
-	//	textCartItemCount.setText(modelHomeTools.getItemBadgeCount());
+		userSharedPreferences = new UserSharedPreferences(this);
+		modelHomeTools = new ModelHomeTools();
+		modelHomeTools = userSharedPreferences.getBasketItem();
 		
-		buttonAddToBasket=findViewById(R.id.button_add_to_basket);
+		//	textCartItemCount.setText(modelHomeTools.getItemBadgeCount());
+		
+		buttonAddToBasket = findViewById(R.id.button_add_to_basket);
 		buttonAddToBasket.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				
-				 userSharedPreferences.saveBasketItem(modelHomeTools);
+				badgeCountItem = badgeCountItem + 1;
 				
 			}
 		});
 		
 		switch (intentProductActivity) {
 			
-			
 			case 70:
 				notePaper1();
 				
-				
 				break;
 			case 71:
+				
+				getSupportActionBar().setTitle(getString(R.string.note_71_title));
+				
 				
 				slider.setAdapter(new SliderAdapter() {
 					
@@ -165,12 +164,14 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				Slider.init(new ImageLoaderSlider(this));
 				
-				textHeadTitle.setText(getString(R.string.home_90_title));
-				textSubTitle.setText(getString(R.string.home_90_sub));
+				textHeadTitle.setText(getString(R.string.philips));
+				textSubTitle.setText(R.string.philips_sub);
+				
+				getSupportActionBar().setTitle(getString(R.string.philips_sub));
 				
 				textGaranty.setText("گارانتی سرخ کن");
-				textShopinSell.setText(" شاپینگ   سرخ کن");
-				textSendToCustomer.setText(" ارسال در چند روز ");
+				textShopinSell.setText(" شاپینگ سرخ کن");
+				textSendToCustomer.setText(" ارسال در 2 روز");
 				textPriceOriginal.setText(getString(R.string.home_90_original));
 				textPriceDiscount.setVisibility(View.VISIBLE);
 				textPriceDiscount.setText(getString(R.string.home_90_discount));
@@ -208,8 +209,10 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				Slider.init(new ImageLoaderSlider(this));
 				
-				textHeadTitle.setText(getString(R.string.home_91_title));
-				textSubTitle.setText(getString(R.string.home_91_sub));
+				textHeadTitle.setText(getString(R.string.hardston));
+				textSubTitle.setText(R.string.hard_sub);
+				
+				getSupportActionBar().setTitle(getString(R.string.hard_sub));
 				
 				textGaranty.setText("گارانتی اجاق گاز");
 				textShopinSell.setText(" شاپینگ  اجاق گاز");
@@ -249,6 +252,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 				textHeadTitle.setText(getString(R.string.clean_10_title));
 				textSubTitle.setText(" ");
 				
+				getSupportActionBar().setTitle(getString(R.string.clean_10_title));
+				
 				textGaranty.setText(" ");
 				textShopinSell.setText(" ");
 				textSendToCustomer.setText(" ارسال در چند روز ");
@@ -280,6 +285,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				textHeadTitle.setText(getString(R.string.clean_11_title));
 				textSubTitle.setText(" ");
+				
+				getSupportActionBar().setTitle(getString(R.string.clean_11_title));
 				
 				textGaranty.setText(" ");
 				textShopinSell.setText(" ");
@@ -319,6 +326,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 				textHeadTitle.setText(getString(R.string.hair_60_title));
 				textSubTitle.setText(" ");
 				
+				getSupportActionBar().setTitle(getString(R.string.hair_60_title));
+				
 				textGaranty.setText("گارانتی فیلیپس ");
 				textShopinSell.setText("مانیا ");
 				textSendToCustomer.setText(" ارسال در3 روز ");
@@ -357,6 +366,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 				textHeadTitle.setText(getString(R.string.hair_61_title));
 				textSubTitle.setText(" ");
 				
+				getSupportActionBar().setTitle(getString(R.string.hair_61_title));
+				
 				textGaranty.setText("گارانتی موزر ");
 				textShopinSell.setText("راد الکترونیک ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -394,6 +405,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				textHeadTitle.setText(getString(R.string.sport_80_title));
 				textSubTitle.setText(" ");
+				
+				getSupportActionBar().setTitle(getString(R.string.sport_80_title));
 				
 				textGaranty.setText("گارانتی نایک ");
 				textShopinSell.setText("اسپرت ");
@@ -439,6 +452,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				textHeadTitle.setText(getString(R.string.sport_81_title));
 				textSubTitle.setText(" ");
 				
+				getSupportActionBar().setTitle(getString(R.string.sport_81_title));
 				textGaranty.setText("گارانتی نیو بالانس ");
 				textShopinSell.setText("اسپرت ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -477,6 +491,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				textHeadTitle.setText(getString(R.string.toys_110_title));
 				textSubTitle.setText(" ");
 				
+				getSupportActionBar().setTitle(getString(R.string.toys_110_title));
 				textGaranty.setText("گارانتی اسباب بازی ");
 				textShopinSell.setText("اسباب بازی ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -514,6 +529,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				textHeadTitle.setText(getString(R.string.toys_111_title));
 				textSubTitle.setText(" ");
+				
+				getSupportActionBar().setTitle(getString(R.string.toys_111_title));
 				
 				textGaranty.setText("گارانتی اسباب بازی ");
 				textShopinSell.setText("اسباب بازی ");
@@ -553,6 +570,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				textHeadTitle.setText(getString(R.string.tools_30_title));
 				textSubTitle.setText(" ");
 				
+				getSupportActionBar().setTitle(getString(R.string.tools_30_title));
 				textGaranty.setText("گارانتی ابزار   ");
 				textShopinSell.setText("ابزار   ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -591,6 +609,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				textHeadTitle.setText(getString(R.string.tools_31_title));
 				textSubTitle.setText(" ");
 				
+				getSupportActionBar().setTitle(getString(R.string.tools_31_title));
 				textGaranty.setText("گارانتی ابزار   ");
 				textShopinSell.setText("ابزار   ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -635,6 +654,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				textHeadTitle.setText(getString(R.string.gold_20_title));
 				textSubTitle.setText(" ");
 				
+				getSupportActionBar().setTitle(getString(R.string.gold_20_title));
 				textGaranty.setText("گارانتی طلا   ");
 				textShopinSell.setText("طلا   ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -672,7 +692,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				textHeadTitle.setText(getString(R.string.gold_21_title));
 				textSubTitle.setText(" ");
-				
+				getSupportActionBar().setTitle(getString(R.string.gold_21_title));
 				textGaranty.setText("گارانتی طلا   ");
 				textShopinSell.setText("طلا   ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -713,10 +733,10 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				textHeadTitle.setText(getString(R.string.mobile_50_title));
 				textSubTitle.setText(getString(R.string.mobile_50_sub));
-				
-				textGaranty.setText("گارانتی    ");
-				textShopinSell.setText("ایفون   ");
-				textSendToCustomer.setText(" ارسال 2 روز ");
+				getSupportActionBar().setTitle(getString(R.string.mobile_50_title));
+				textGaranty.setText("گارانتی راد سیستم");
+				textShopinSell.setText("فروش توسط راد سیستم ");
+				textSendToCustomer.setText(" ارسال در 2 روز ");
 				textPriceOriginal.setText(getString(R.string.mobile_50_original));
 				textPriceDiscount.setVisibility(View.VISIBLE);
 				textPriceDiscount.setText(getString(R.string.mobile_50_discount));
@@ -761,9 +781,10 @@ public class ProductDetailActivity extends AppCompatActivity {
 				textHeadTitle.setText(getString(R.string.mobile_51_title));
 				textSubTitle.setText(getString(R.string.mobile_51_sub));
 				
-				textGaranty.setText("گارانتی    ");
-				textShopinSell.setText("ایفون   ");
-				textSendToCustomer.setText(" ارسال 2 روز ");
+				getSupportActionBar().setTitle(getString(R.string.mobile_51_title));
+				textGaranty.setText("گارانتی مدیا پردازش");
+				textShopinSell.setText("فروش توسط مدیا پردازش ");
+				textSendToCustomer.setText(" ارسال در 2 روز ");
 				textPriceOriginal.setText(getString(R.string.mobile_51_original));
 				textPriceDiscount.setVisibility(View.VISIBLE);
 				textPriceDiscount.setText(getString(R.string.mobile_51_discount));
@@ -805,7 +826,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				textHeadTitle.setText(getString(R.string.fruit_40_title));
 				textSubTitle.setText(" ");
-				
+				getSupportActionBar().setTitle(getString(R.string.fruit_40_title));
 				textGaranty.setText("     ");
 				textShopinSell.setText("    ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -844,7 +865,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				textHeadTitle.setText(getString(R.string.fruit_41_title));
 				textSubTitle.setText(getString(R.string.fruit_41_sub));
-				
+				getSupportActionBar().setTitle(getString(R.string.fruit_41_title));
 				textGaranty.setText("     ");
 				textShopinSell.setText("    ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -882,7 +903,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				textHeadTitle.setText(getString(R.string.note_70_title));
 				textSubTitle.setText(getString(R.string.note_70_sub_title));
-				
+				getSupportActionBar().setTitle(getString(R.string.note_70_title));
 				textShegeft1.setVisibility(View.VISIBLE);
 				textShegeft2.setVisibility(View.VISIBLE);
 				
@@ -931,7 +952,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 				textHeadTitle.setText(getString(R.string.mobile_51_title));
 				textSubTitle.setText(" ");
-				
+				getSupportActionBar().setTitle(getString(R.string.mobile_51_title));
 				textGaranty.setText("گارانتی    ");
 				textShopinSell.setText("ایفون   ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -975,6 +996,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				});
 				Slider.init(new ImageLoaderSlider(this));
 				textHeadTitle.setText(getString(R.string.mobile_51_title));
+				getSupportActionBar().setTitle(getString(R.string.mobile_51_title));
 				textSubTitle.setText(" ");
 				textGaranty.setText("گارانتی    ");
 				textShopinSell.setText("ایفون   ");
@@ -991,6 +1013,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 			case 981:
 				
 				slider.setAdapter(new SliderAdapter() {
+					
 					@Override
 					public int getItemCount() {
 						return 4;
@@ -1018,6 +1041,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				Slider.init(new ImageLoaderSlider(this));
 				textHeadTitle.setText(getString(R.string.vije_981_title));
 				textSubTitle.setText(" ");
+				getSupportActionBar().setTitle(getString(R.string.vije_981_title));
 				textGaranty.setText("گارانتی LG   ");
 				textShopinSell.setText("LG   ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -1059,7 +1083,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 				Slider.init(new ImageLoaderSlider(this));
 				textHeadTitle.setText(getString(R.string.fruit_40_title));
 				textSubTitle.setText(" ");
-				
+				getSupportActionBar().setTitle(getString(R.string.fruit_40_title));
 				textGaranty.setText("     ");
 				textShopinSell.setText("    ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
@@ -1096,17 +1120,16 @@ public class ProductDetailActivity extends AppCompatActivity {
 				Slider.init(new ImageLoaderSlider(this));
 				textHeadTitle.setText(getString(R.string.fruit_41_title));
 				textSubTitle.setText(getString(R.string.fruit_41_sub));
+				getSupportActionBar().setTitle(getString(R.string.fruit_41_title));
 				textGaranty.setText("     ");
 				textShopinSell.setText("    ");
 				textSendToCustomer.setText(" ارسال 2 روز ");
 				textPriceOriginal.setText(getString(R.string.fruit_41_original));
 				slider.setSelectedSlide(2);
-			
+				
 				break;
-				
-				
+			
 		}
-		
 		
 		buttonProductComment.setOnClickListener(new View.OnClickListener() {
 			
@@ -1125,48 +1148,11 @@ public class ProductDetailActivity extends AppCompatActivity {
 				
 			}
 		});
-		slider.setOnSlideClickListener(new OnSlideClickListener() {
-			
-			@Override
-			public void onSlideClick(int position) {
-				Intent intent1 = new Intent(ProductDetailActivity.this, SliderActivity.class);
-				
-				switch (position) {
-					//for mobile only
-					case 3:
-						break;
-					case 2:
-						switch (intentProductActivity) {
-							case 70:
-								intent1.putExtra(PRODUCT_ID_NAME, 701);
-								startActivity(intent1);
-								break;
-							case 71:
-								intent1.putExtra(PRODUCT_ID_NAME, 710);
-								startActivity(intent1);
-								break;
-						}
-						break;
-					
-				}
-				
-			}
-		});
 		
-//		imageBackButton = findViewById(R.id.image_back_button);
-//		imageBackButton.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//
-//				finish();
-//
-//			}
-//		});
-		
+		clickBasket();
 	}
 	private void initToolbar() {
-		toolbarDetail=findViewById(R.id.toolbar_product_detail_activity);
+		toolbarDetail = findViewById(R.id.toolbar_product_detail_activity);
 		setSupportActionBar(toolbarDetail);
 		toolbarDetail.setTitleTextColor(ContextCompat.getColor(this, R.color.WhiteColor));
 		ActionBar actionBar = getSupportActionBar();
@@ -1190,6 +1176,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 		buttonProductSpecification = findViewById(R.id.button_specification_layout);
 	}
 	private void notePaper1() {
+		
 		
 		slider.setAdapter(new SliderAdapter() {
 			
@@ -1216,6 +1203,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 		
 		Slider.init(new ImageLoaderSlider(this));
 		
+		getSupportActionBar().setTitle(getString(R.string.note_70_title));
 		textHeadTitle.setText(getString(R.string.note_70_title));
 		textSubTitle.setText(getString(R.string.note_70_sub_title));
 		
@@ -1235,7 +1223,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 	}
 	private void initBasketItemView() {
 		imageViewBasketItem = findViewById(R.id.image_basket_icon_button);
-		
+
 //		buttonAddToBasket = findViewById(R.id.button_add_to_basket);
 //
 //		final QBadgeView qBadgeView = new QBadgeView(this);
@@ -1308,20 +1296,41 @@ public class ProductDetailActivity extends AppCompatActivity {
 			}
 		});
 	}
-	
+	private void clickBasket() {
+		buttonAddToBasket.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				
+				
+				
+				
+				Intent intent = new Intent(ProductDetailActivity.this, BasketActivity.class);
+ 
+ 
+				startActivity(intent);
+				
+ 
+				
+				
+			
+				
+			}
+		});
+	}
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.basket_menu_item, menu);
 		
-		
-		final MenuItem menuItem=menu.findItem(R.id.action_cart);
+		final MenuItem menuItem = menu.findItem(R.id.action_cart);
 		
 		View actionView = menuItem.getActionView();
 		
-		textCartItemCount =   actionView.findViewById(R.id.cart_badge);
-		
-		setUpBadge();
-		
+		textCartItemCount = actionView.findViewById(R.id.cart_badge);
+
+//		textCartItemCount.setText(String.valueOf(0));
 		actionView.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
 				onOptionsItemSelected(menuItem);
@@ -1330,21 +1339,32 @@ public class ProductDetailActivity extends AppCompatActivity {
 		});
 		return true;
 	}
-	private void setUpBadge() {
-		
-		if (textCartItemCount != null) {
-			
-			if (badgeCountItem == 0) {
-				if (textCartItemCount.getVisibility() != View.GONE) {
-					textCartItemCount.setVisibility(View.GONE);
-				}
-			} else {
-				textCartItemCount.setText(String.valueOf( badgeCountItem));
-				if (textCartItemCount.getVisibility() != View.VISIBLE) {
-					textCartItemCount.setVisibility(View.VISIBLE);
-				}
-			}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		switch (id) {
+			case android.R.id.home:
+				finish();
+				break;
 		}
-		
+		return super.onOptionsItemSelected(item);
+	}
+	private void setUpBadge() {
+
+//		if (textCartItemCount != null) {
+//
+//			if (badgeCountItem == 0) {
+//				if (textCartItemCount.getVisibility() != View.GONE) {
+//					textCartItemCount.setVisibility(View.GONE);
+//				}
+//			} else {
+//				textCartItemCount.setText(String.valueOf( badgeCountItem));
+//				if (textCartItemCount.getVisibility() != View.VISIBLE) {
+//					textCartItemCount.setVisibility(View.VISIBLE);
+//				}
+//			}
+//		}
+//
+//	}
 	}
 }

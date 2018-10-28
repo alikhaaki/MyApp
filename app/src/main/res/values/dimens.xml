@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!--____________margin_____________-->
+	<dimen name="margin_sixteen">16dp</dimen>
+	<dimen name="margin_standard">8dp</dimen>
+	<dimen name="margin_six">6dp</dimen>
+	<dimen name="margin_four">4dp</dimen>
+	<dimen name="margin_two">2dp</dimen>
+	<!--____________padding_____________-->
+	<dimen name="padding_standard">8dp</dimen>
+	<dimen name="padding_six">6dp</dimen>
+	<dimen name="padding_four">4dp</dimen>
+	<dimen name="padding_two">2dp</dimen>
+	<!--____________textSize_____________-->
+	<dimen name="text_header_big">34sp</dimen>
+	<dimen name="text_header_medium">24sp</dimen>
+	<dimen name="text_header_tiny">20sp</dimen>
+	<dimen name="text_sub_header_medium">16sp</dimen>
+	<dimen name="text_sub_header_tiny">14sp</dimen>
+	<dimen name="text_tiny">12sp</dimen>
+	<!--____________Number_____________-->
+	<dimen name="sixteen">16dp</dimen>
+	<dimen name="twelve">12dp</dimen>
+	<dimen name="ten">10dp</dimen>
+	<dimen name="card_margin">4dp</dimen>
+	<dimen name="fab_margin">16dp</dimen>
+</resources>
+

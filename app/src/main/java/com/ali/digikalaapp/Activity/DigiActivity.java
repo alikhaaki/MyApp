@@ -1,5 +1,6 @@
 package com.ali.digikalaapp.Activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -83,6 +84,8 @@ public class DigiActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_digi);
 		
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+		
 		initSlider();
 		initCountDownTimer();
 		initButtonRecyclerView();
@@ -92,10 +95,7 @@ public class DigiActivity extends AppCompatActivity {
 		navigateFontAndClick();
 		initRecyclerSuggestion();
 		
-		int mWith= Resources.getSystem().getDisplayMetrics().widthPixels;
-		int mHith= Resources.getSystem().getDisplayMetrics().heightPixels;
-		
-		Log.i("H_T_H", "hig and wig"+"hig= "+mHith+" wig= "+"  "+"  "+mWith);
+	 
 	}
 	private void initRecyclerSuggestion() {
 		
@@ -105,13 +105,13 @@ public class DigiActivity extends AppCompatActivity {
 		
 		List<ModelHomeTools> listItemLavazem = new ArrayList<>();
 		
-		
 		adapterHomeSuggestList = new AdapterDigiSuggestion(this, listItemLavazem);
 		
-		listItemLavazem.add(new ModelHomeTools(R.drawable.sorkhkon, "Sorkh kon philips 200 W ", "", "799،000 تومان", "890,000 تومان"));
-		listItemLavazem.add(new ModelHomeTools(R.drawable.polopazapars, "Polo paz pars khazar 480 W", "", "299،999 تومان", "390,000 تومان"));
-		listItemLavazem.add(new ModelHomeTools(R.drawable.ojaghgaz, "Ojagh gas Hardston model 3520", "", "800,000 تومان", "1,00,000 تومان"));
-		listItemLavazem.add(new ModelHomeTools(R.drawable.sandwichsaz, "Sandwich saz kenwood", " ", "200،000 تومان", "290,000 تومان"));
+		
+		listItemLavazem.add(new ModelHomeTools(R.drawable.sorkhkon, getString(R.string.philips), getString(R.string.philips_sub), "799،000 تومان", "890,000 تومان"));
+		listItemLavazem.add(new ModelHomeTools(R.drawable.ojaghgaz, getString(R.string.hardston), getString(R.string.hard_sub), "800,000 تومان", "1,00,000 تومان"));
+		listItemLavazem.add(new ModelHomeTools(R.drawable.polopazapars, getString(R.string.rise_cook), "", "299،999 تومان", "390,000 تومان"));
+		listItemLavazem.add(new ModelHomeTools(R.drawable.sandwichsaz, "Sandwich  kenwood", " ", "200،000 تومان", "290,000 تومان"));
 		listItemLavazem.add(new ModelHomeTools(R.drawable.kababsaz, "Kabab saz kenwood", " ", "500،000 تومان", "690,000 تومان"));
 		listItemLavazem.add(new ModelHomeTools(R.drawable.microvavelavazem, "Micro wave hardston 2000 W", " ", "1،999،999 تومان", "2,540,000 تومان"));
 		
@@ -121,17 +121,30 @@ public class DigiActivity extends AppCompatActivity {
 			
 			@Override
 			public void onItemClick(View view, int position) {
-				Intent intent=new Intent(DigiActivity.this,ProductDetailActivity.class);
-				
-				switch (position){
+				Intent intent = new Intent(DigiActivity.this, ProductDetailActivity.class);
+				int pos=position+1;
+				switch (position) {
 					case 0:
 						intent.putExtra(PRODUCT_ID_NAME, 90);
 						startActivity(intent);
+						break;
 					case 1:
 						intent.putExtra(PRODUCT_ID_NAME, 91);
 						startActivity(intent);
+						break;
+					case 2:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+					case 3:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+					case 4:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+					case 5:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
 				}
-				
 			}
 			@Override
 			public void onItemLongClick(View view, int position) {
@@ -155,7 +168,8 @@ public class DigiActivity extends AppCompatActivity {
 		modelHomeTools.setTextPriceDiscount("7،000،000 تومان");
 		listItemLavazem.add(modelHomeTools);
 		
-		modelHomeTools = new ModelHomeTools();
+		modelHomeTools = new
+			                 ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.iphone3);
 		modelHomeTools.setTextTitle("آیفون X ");
 		modelHomeTools.setTextSubTitle("مدل 128 گیگ");
@@ -163,7 +177,8 @@ public class DigiActivity extends AppCompatActivity {
 		modelHomeTools.setTextPriceDiscount("19،000،000 تومان");
 		listItemLavazem.add(modelHomeTools);
 		
-		modelHomeTools = new ModelHomeTools();
+		modelHomeTools = new
+			                 ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.iphone22);
 		modelHomeTools.setTextTitle("آیفون 8 ");
 		modelHomeTools.setTextSubTitle("مدل 256 گیگ");
@@ -171,7 +186,8 @@ public class DigiActivity extends AppCompatActivity {
 		modelHomeTools.setTextPriceDiscount("9،000،000 تومان");
 		listItemLavazem.add(modelHomeTools);
 		
-		modelHomeTools = new ModelHomeTools();
+		modelHomeTools = new
+			                 ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.iphone16);
 		modelHomeTools.setTextTitle("آیفون 8 ");
 		modelHomeTools.setTextSubTitle("مدل 256 گیگ");
@@ -179,7 +195,8 @@ public class DigiActivity extends AppCompatActivity {
 		modelHomeTools.setTextPriceDiscount("9،000،000 تومان");
 		listItemLavazem.add(modelHomeTools);
 		
-		modelHomeTools = new ModelHomeTools();
+		modelHomeTools = new
+			                 ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.iphone13);
 		modelHomeTools.setTextTitle("آیفون 6 ");
 		modelHomeTools.setTextSubTitle("مدل 16 گیگ");
@@ -187,7 +204,8 @@ public class DigiActivity extends AppCompatActivity {
 		modelHomeTools.setTextPriceDiscount("4،000،000 تومان");
 		listItemLavazem.add(modelHomeTools);
 		
-		modelHomeTools = new ModelHomeTools();
+		modelHomeTools = new
+			                 ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.lg14);
 		modelHomeTools.setTextTitle("LG K10 2017   ");
 		modelHomeTools.setTextSubTitle("مدل 16 گیگ");
@@ -195,7 +213,8 @@ public class DigiActivity extends AppCompatActivity {
 		modelHomeTools.setTextPriceDiscount("2،000،000 تومان");
 		listItemLavazem.add(modelHomeTools);
 		
-		modelHomeTools = new ModelHomeTools();
+		modelHomeTools = new
+			                 ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.lg18);
 		modelHomeTools.setTextTitle("LG OLYMPUS ");
 		modelHomeTools.setTextSubTitle("مدل 32 گیگ");
@@ -203,7 +222,8 @@ public class DigiActivity extends AppCompatActivity {
 		modelHomeTools.setTextPriceDiscount("4،500،000 تومان");
 		listItemLavazem.add(modelHomeTools);
 		
-		modelHomeTools = new ModelHomeTools();
+		modelHomeTools = new
+			                 ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.lg1);
 		modelHomeTools.setTextTitle("LG K10 2016 ");
 		modelHomeTools.setTextSubTitle("مدل 16 گیگ");
@@ -211,7 +231,8 @@ public class DigiActivity extends AppCompatActivity {
 		modelHomeTools.setTextPriceDiscount("1،000،000 تومان");
 		listItemLavazem.add(modelHomeTools);
 		
-		modelHomeTools = new ModelHomeTools();
+		modelHomeTools = new
+			                 ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.samsung6);
 		modelHomeTools.setTextTitle("SAMSUNG Note 8 ");
 		modelHomeTools.setTextSubTitle("مدل 256 گیگ");
@@ -219,7 +240,8 @@ public class DigiActivity extends AppCompatActivity {
 		modelHomeTools.setTextPriceDiscount("12،500،000 تومان");
 		listItemLavazem.add(modelHomeTools);
 		
-		modelHomeTools = new ModelHomeTools();
+		modelHomeTools = new
+			                 ModelHomeTools();
 		modelHomeTools.setImageProductItem(R.drawable.samsung21);
 		modelHomeTools.setTextTitle("SAMSUNG A5   ");
 		modelHomeTools.setTextSubTitle("مدل 32 گیگ");
@@ -227,18 +249,71 @@ public class DigiActivity extends AppCompatActivity {
 		modelHomeTools.setTextPriceDiscount("6،500،000 تومان");
 		listItemLavazem.add(modelHomeTools);
 		
+		recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(DigiActivity.this, recyclerView, new RecyclerViewItemClickListener.OnItemClickListener() {
+			
+			@Override
+			public void onItemClick(View view, int position) {
+				Intent intent = new Intent(DigiActivity.this, ProductDetailActivity.class);
+				int pos=position+1;
+				switch (position) {
+					
+					case 0:
+ 						intent.putExtra(PRODUCT_ID_NAME, 51);
+						startActivity(intent);
+						break;
+					case 1:
+ 						intent.putExtra(PRODUCT_ID_NAME, 50);
+						startActivity(intent);
+						break;
+					case 2:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+					case 3:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+					case 4:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+					case 5:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+					case 6:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+					case 7:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+					case 8:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+					case 9:
+						Toast.makeText(DigiActivity.this, " آیتم " + pos + " کلیک شد ", Toast.LENGTH_SHORT).show();
+						break;
+				}
+				
+			}
+			@Override
+			public void onItemLongClick(View view, int position) {
+			
+			}
+		}));
 		recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 		recyclerView.setAdapter(adapterHomeSuggestList);
 		
 	}
-	
+	@Override
+	public void onBackPressed() {
+		SharedPreferences share=getSharedPreferences("int_key", MODE_PRIVATE);
+		share.edit().clear().commit();
+		super.onBackPressed();
+	}
 	private void initDrawerLayout() {
 		drawerLayout = findViewById(R.id.drawerLayoutDigiKala);
 		
 		QBadgeView qBadgeView = new QBadgeView(this);
 		
-	//	ImageView imDrawer = findViewById(R.id.image_drawer_hamburger);
-		
+		//	ImageView imDrawer = findViewById(R.id.image_drawer_hamburger);
+
 //		qBadgeView.bindTarget(imDrawer)
 //			.setBadgeBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
 //			.setGravityOffset(-1, -5, true)
@@ -363,21 +438,17 @@ public class DigiActivity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
-//		image_server = findViewById(R.id.image_server_layout);
-//
-//		image_server.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				startActivity(new Intent(DigiActivity.this, ProductServerActivity.class));
-//			}
-//		});
+
 	}
 	private void initButtonRecyclerView() {
+		
 		listButton = new ArrayList<>();
 		ModelButton model = new ModelButton();
 		model.setTextButton("موبایل");
 		listButton.add(model);
+		
+	
+		
 		model = new ModelButton();
 		model.setTextButton("زیورآلات طلا");
 		listButton.add(model);
@@ -396,6 +467,11 @@ public class DigiActivity extends AppCompatActivity {
 		
 		model = new ModelButton();
 		model.setTextButton("لوازم التحریر");
+		listButton.add(model);
+		
+		
+		model = new ModelButton();
+		model.setTextButton("لوازم خانه");
 		listButton.add(model);
 		
 		recyclerViewDigi = findViewById(R.id.recyclerViewDigiKala);
@@ -443,6 +519,11 @@ public class DigiActivity extends AppCompatActivity {
 						intent.putExtra(KEY_NAME, NOTE_PAPER);
 						startActivity(intent);
 						break;
+					case 7:
+						intent.putExtra(KEY_NAME, HOME_APPLIANCE);
+						startActivity(intent);
+						break;
+						
 				}
 			}
 			@Override
@@ -489,7 +570,6 @@ public class DigiActivity extends AppCompatActivity {
 			}
 		});
 		
-		
 		slider.setOnSlideClickListener(new OnSlideClickListener() {
 			
 			@Override
@@ -526,9 +606,7 @@ public class DigiActivity extends AppCompatActivity {
 		mi.setTitle(mNewTitle);
 		
 	}
-	private void showEmailNavigationHeader(String email) {
-		textEmailSingUp.setText(email);
-	}
+	
 	private void navigateFontAndClick() {
 		navigationView = findViewById(R.id.navigation_View_digi);
 		Menu m = navigationView.getMenu();
@@ -558,17 +636,13 @@ public class DigiActivity extends AppCompatActivity {
 			editor.putString("em", em);
 		}
 
-//		UserSharedPreferences userSharedPreferences = new UserSharedPreferences(DigiActivity.this);
-//		String email = userSharedPreferences.getUserLogniInfo();
-//		if (!email.isEmpty()) {
-//			textEmailSingUp.setText(email);
-//		}
+
 		
 		navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 			
 			@Override
 			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-				Intent intent1=new Intent(DigiActivity.this,ProductListActivity.class);
+				Intent intent1 = new Intent(DigiActivity.this, ProductListActivity.class);
 				
 				switch (item.getItemId()) {
 					case R.id.menu_sign_in:
@@ -583,8 +657,7 @@ public class DigiActivity extends AppCompatActivity {
 						break;
 					case R.id.menu_basket_item:
 						
-						
- 					Toast.makeText(DigiActivity.this, "سبد خرید انتخاب شد", Toast.LENGTH_SHORT).show();
+						Toast.makeText(DigiActivity.this, "سبد خرید انتخاب شد", Toast.LENGTH_SHORT).show();
 						break;
 					case R.id.menu_item_special_suggest:
 						intent1.putExtra(KEY_NAME, HOME_APPLIANCE);
@@ -603,13 +676,13 @@ public class DigiActivity extends AppCompatActivity {
 						startActivity(intent1);
 						break;
 					case R.id.menu_item_setting:
-						TastyToast.makeText(DigiActivity.this, "تنظیمات",TastyToast.LENGTH_LONG, TastyToast.DEFAULT);
+						TastyToast.makeText(DigiActivity.this, "تنظیمات", TastyToast.LENGTH_LONG, TastyToast.DEFAULT);
 						break;
 					case R.id.menu_most_question:
-						TastyToast.makeText(DigiActivity.this, "سوالات متدوال",TastyToast.LENGTH_LONG, TastyToast.INFO);
+						TastyToast.makeText(DigiActivity.this, "سوالات متدوال", TastyToast.LENGTH_LONG, TastyToast.INFO);
 						break;
 					case R.id.itemAbout:
-						startActivity(new Intent(DigiActivity.this,AboutActivity.class));
+						startActivity(new Intent(DigiActivity.this, AboutActivity.class));
 						break;
 					
 				}
@@ -617,21 +690,21 @@ public class DigiActivity extends AppCompatActivity {
 			}
 		});
 	}
-	 private TextView textCartItemCount;
+	private TextView textCartItemCount;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.basket_menu_item, menu);
 		
-		
-		final MenuItem menuItem=menu.findItem(R.id.action_cart);
+		final MenuItem menuItem = menu.findItem(R.id.action_cart);
 		
 		View actionView = menuItem.getActionView();
 		
-		textCartItemCount =   actionView.findViewById(R.id.cart_badge);
+		textCartItemCount = actionView.findViewById(R.id.cart_badge);
 		
-		setUpBadge();
-		
+	 
+		textCartItemCount.setText(String.valueOf(0));
 		actionView.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
 				onOptionsItemSelected(menuItem);
@@ -640,7 +713,7 @@ public class DigiActivity extends AppCompatActivity {
 		});
 		return true;
 	}
-	private int mCartItemCount=0;
+	private int mCartItemCount = 0;
 	private void setUpBadge() {
 		
 		if (textCartItemCount != null) {
@@ -656,7 +729,7 @@ public class DigiActivity extends AppCompatActivity {
 				}
 			}
 		}
-	
+		
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -677,18 +750,4 @@ public class DigiActivity extends AppCompatActivity {
 	private static final int REQUEST_CODE_LOGIN = 2;
 	public static final int RESULT_OK = 1;
 	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == REQUEST_CODE_LOGIN) {
-			if (resultCode == RESULT_OK) {
-				String email = data.getStringExtra("email");
-				if (email != null && !email.isEmpty()) {
-					
-					showEmailNavigationHeader(email);
-					
-				}
-			}
-		}
-	}
 }

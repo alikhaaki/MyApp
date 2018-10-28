@@ -176,7 +176,7 @@
 					    android:id="@+id/textPishnahadVije"
 					    android:layout_width="wrap_content"
 					    android:layout_height="wrap_content"
-					    android:layout_marginLeft="@dimen/margin_standard"
+					    android:layout_marginLeft="20dp"
 					    android:layout_alignParentRight="true"
 					    android:text="پیشنهاد ویژه"
 					    android:textSize="@dimen/text_sub_header_medium"/>
